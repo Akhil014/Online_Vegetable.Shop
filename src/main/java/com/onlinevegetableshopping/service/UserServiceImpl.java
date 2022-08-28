@@ -1,6 +1,7 @@
 package com.onlinevegetableshopping.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,6 +11,7 @@ import com.onlinevegetableshopping.dao.FeedbackRepository;
 import com.onlinevegetableshopping.dao.RaiseComplaintRepository;
 import com.onlinevegetableshopping.dao.UserRepository;
 import com.onlinevegetableshopping.dao.VegetableRepository;
+import com.onlinevegetableshopping.exception.VegetableIdNotFoundException;
 import com.onlinevegetableshopping.model.Cart;
 import com.onlinevegetableshopping.model.FeedBack;
 import com.onlinevegetableshopping.model.RaiseComplaint;
@@ -38,7 +40,8 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private RaiseComplaintRepository raiseRepo;
-
+	
+	
 	// method implementing to give feedback
 
 	@Override
@@ -74,18 +77,34 @@ public class UserServiceImpl implements UserService {
 	// method implementing to raise Complaint 
 
 	@Override
-	public RaiseComplaint raiseCompliant(RaiseComplaint raisecomp) {
-		RaiseComplaint raise = raiseRepo.saveAndFlush(raisecomp);
+	public RaiseComplaint raiseCompliant(RaiseComplaint raisecomplaint) {
+		RaiseComplaint raise = raiseRepo.saveAndFlush(raisecomplaint);
 		return raise;
 	}
 	
 	// method implementing to delete Vegetable by Id
 
-	public Cart deleteVegetablebyId(int veg_id) {
-		cartRepo.deleteById(veg_id);
+	public Cart deleteVegetablebyId(int vegetableId) throws VegetableIdNotFoundException {
+		try {
+		cartRepo.deleteById(vegetableId);
 		return null;
+		}catch (Exception e) {
+		
+			throw new VegetableIdNotFoundException("Entered Vegetable id is not found");
+		}
 	}
 
+	@Override
+	public Vegetable getById(int vegetableId) throws VegetableIdNotFoundException {
+		try {
+		Optional<Vegetable> vegetable=vegRepo.findById(vegetableId);
+		return vegetable.get();
+		}catch (Exception e) {
+			throw new VegetableIdNotFoundException("Entered Vegetable id is not found");
+		}
+	}
+
+	
 	
 
 	

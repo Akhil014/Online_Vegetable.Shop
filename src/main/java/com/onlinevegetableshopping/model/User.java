@@ -4,151 +4,135 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
-
 /**
  * The Class User is the Entity representing User table in database
  * 
- * @author Das,  Smrutiranjan
+ * @author Das, Smrutiranjan
  *
  */
 @Entity
-@Table(name="user_details")
+@Table(name = "user_details")
 public class User {
-	
+
 	@Id
-	@Column(name="user_Id")
-	private int id;
-	@Column(name="user_Name")
-	private String name;
-	@Column(name="user_Password")
-	private String password;
-	
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "user_id")
+	private long userId;
+    @NotBlank(message = "Name is mandatory")
+	@Column(name = "user_name")
+	private String userName;
+	@Column(name = "user_password")
+	private String userPassword;
+
 	@OneToMany(targetEntity = RaiseComplaint.class)
 	@Fetch(FetchMode.JOIN)
 	@JoinColumn(name = "complaint_id")
-	private Set<RaiseComplaint> raiseComplaints;
-	
+	private Set<RaiseComplaint> raiseComplaint;
+
 	@OneToMany(targetEntity = FeedBack.class)
 	@Fetch(FetchMode.JOIN)
 	@JoinColumn(name = "feedback_id")
 	private Set<FeedBack> feedback;
-	
+
 	@ManyToOne(targetEntity = Order.class)
 	@Fetch(FetchMode.JOIN)
 	@JoinColumn(name = "order_id")
-	private Order orders;
-	
-	
-	
-	
+	private Order order;
 
 	/**
 	 * User default constructor
 	 */
 	public User() {
 		super();
-		
+
 	}
 
 	/**
-	 * User constructor with fields as parameters
-	 * 
-	 * @param Id        the Id of user
-	 * @param name      the name of user
-	 * @param password   the password of user
-	 * @param orders      the orders by user
-	 */
-	
-	public User(int id, String name, String password, Set<RaiseComplaint> raiseComplaints, Set<FeedBack> feedback,
-			Order orders) {
+     * User constructor with fields as parameters
+     *
+     * @param Id        the Id of user
+     * @param name      the name of user
+     * @param password   the password of user
+     * @param orders      the orders by user
+     */
+	public User(long userId, String userName, String userPassword, Set<RaiseComplaint> raiseComplaint,
+			Set<FeedBack> feedback, Order order) {
 		super();
-		this.id = id;
-		this.name = name;
-		this.password = password;
-		this.raiseComplaints = raiseComplaints;
+		this.userId = userId;
+		this.userName = userName;
+		this.userPassword = userPassword;
+		this.raiseComplaint = raiseComplaint;
 		this.feedback = feedback;
-		this.orders = orders;
-	}
-//	public User(int id, String name, String password) {
-//		super();
-//		this.id = id;
-//		this.name = name;
-//		this.password = password;
-//	}
-	
-	/**
-	 * gets the Id of user
-	 * 
-	 * @return
-	 */
-	public int getId() {
-		return id;
+		this.order = order;
 	}
 
-	
-
-	/**
-	 * setters for the Id of user 
-	 * 
-	 * @param id
-	 */
-	public void setId(int id) {
-		this.id = id;
+	 /**
+     * gets the Id of user
+     *
+     * @return
+     */
+	public long getUserId() {
+		return userId;
 	}
 
 	/**
-	 * gets the name user
-	 * 
-	 * @return
-	 */
-	public String getName() {
-		return name;
+     * setters for the Id of user
+     *
+     * @param id
+     */
+	public void setUserId(long userId) {
+		this.userId = userId;
+	}
+
+	/**     * gets the name user     *      * @return     */
+
+
+	public String getUserName() {
+		return userName;
 	}
 
 	/**
-	 * setters for the user name
-	 * 
-	 * @param name
-	 */
-	public void setName(String name) {
-		this.name = name;
+     * setters for the user name
+     *
+     * @param name
+     */
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	/**     * gets the user password     *      * @return     */
+
+
+	public String getUserPassword() {
+		return userPassword;
 	}
 
 	/**
-	 * gets the user password
-	 * 
-	 * @return
-	 */
-	public String getPassword() {
-		return password;
+     * setters for the user password
+     *
+     * @param password
+     */
+	public void setUserPassword(String userPassword) {
+		this.userPassword = userPassword;
 	}
 
-	/**
-	 * setters for the user password
-	 * 
-	 * @param password
-	 */
-	public void setPassword(String password) {
-		this.password = password;
+	public Set<RaiseComplaint> getRaiseComplaint() {
+		return raiseComplaint;
 	}
 
-	
-
-	public Set<RaiseComplaint> getRaiseComplaints() {
-		return raiseComplaints;
-	}
-
-	public void setRaiseComplaints(Set<RaiseComplaint> raiseComplaints) {
-		this.raiseComplaints = raiseComplaints;
+	public void setRaiseComplaint(Set<RaiseComplaint> raiseComplaint) {
+		this.raiseComplaint = raiseComplaint;
 	}
 
 	public Set<FeedBack> getFeedback() {
@@ -158,28 +142,19 @@ public class User {
 	public void setFeedback(Set<FeedBack> feedback) {
 		this.feedback = feedback;
 	}
-	
-	
-	
 
-	public Order getOrders() {
-		return orders;
+	public Order getOrder() {
+		return order;
 	}
 
-	public void setOrders(Order orders) {
-		this.orders = orders;
+	public void setOrder(Order order) {
+		this.order = order;
 	}
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", password=" + password + ", raiseComplaints=" + raiseComplaints
-				+ ", feedback=" + feedback + ", orders=" + orders + "]";
+		return "User [userId=" + userId + ", userName=" + userName + ", userPassword=" + userPassword
+				+ ", raiseComplaint=" + raiseComplaint + ", feedback=" + feedback + ", order=" + order + "]";
 	}
 
-	
-
-	
-	
-
-	
 }

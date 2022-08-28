@@ -7,6 +7,6 @@ import com.onlinevegetableshopping.model.Admin;
 import com.onlinevegetableshopping.model.Vegetable;
 
 @Repository
-public interface AdminRepository extends JpaRepository<Admin, Integer>{
+public interface AdminRepository extends JpaRepository<Admin,Integer>{
 
 }

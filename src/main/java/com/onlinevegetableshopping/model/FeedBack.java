@@ -4,6 +4,8 @@ import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -15,17 +17,15 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Table(name="feedback")
+@Table(name = "feedback_details")
 public class FeedBack {
-	
+
 	@Id
 	@Column(name = "feedback_id")
 	private int feedbackId;
+	@Column(name = "description")
 	private String description;
-	
-	
-	
-	
+
 	/**
 	 * feedback default constructor
 	 */
@@ -33,15 +33,13 @@ public class FeedBack {
 		super();
 	}
 
-	
-
 	/**
-	 * feedback constructor with fields as parameters
-	 * 
-	 * @param feedbackId   the feedback Id
-	 * @param description  the description given for feedback
-	 * @param feedbackDate the date on which feedback was given
-	 */
+     * feedback constructor with fields as parameters
+     *
+     * @param feedbackId   the feedback Id
+     * @param description  the description given for feedback
+     * @param feedbackDate the date on which feedback was given
+     */
 	public FeedBack(int feedbackId, String description) {
 		super();
 		this.feedbackId = feedbackId;
@@ -49,62 +47,44 @@ public class FeedBack {
 	}
 
 	/**
-	 * gets the Feedback Id
-	 * 
-	 * @return
-	 */
-
+     * gets for the feedBack Id
+     *
+     * @param feedbackId
+     */
 	public int getFeedbackId() {
 		return feedbackId;
 	}
-
+	
 	/**
-	 * setters for the feedBack Id
-	 * 
-	 * @param feedbackId
-	 */
-
+     * setters for the feedBack Id
+     *
+     * @param feedbackId
+     */
 	public void setFeedbackId(int feedbackId) {
 		this.feedbackId = feedbackId;
 	}
 
-
 	/**
-	 * gets the feedback description
-	 * 
-	 * @return
-	 */
+     * gets the feedback description
+     *
+     * @return
+     */
 	public String getDescription() {
 		return description;
 	}
 
 	/**
-	 * setters for the feedback description
-	 * 
-	 * @param description
-	 */
-
+     * setters for the feedback description
+     *
+     * @param description
+     */
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
-
 
 	@Override
 	public String toString() {
 		return "FeedBack [feedbackId=" + feedbackId + ", description=" + description + "]";
 	}
-
-
-
-	
-
-
-
-	
-	
-	
-	
-	
 
 }

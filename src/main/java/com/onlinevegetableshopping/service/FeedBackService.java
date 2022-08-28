@@ -10,8 +10,5 @@ import com.onlinevegetableshopping.model.FeedBack;
 public interface FeedBackService {
 	//method for managing feedbacks given by the Instructor
 			public List<FeedBack> getAllFeedbacks();
-			public List<FeedBack> deleteFeedback(Integer feedbackId);
-			public List<FeedBack> saveFeedback(FeedBack feedback);
-			public List<FeedBack> updateFeedback(FeedBack feedback);
-
+			
 }

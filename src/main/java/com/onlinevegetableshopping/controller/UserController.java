@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.onlinevegetableshopping.exception.VegetableIdNotFoundException;
 import com.onlinevegetableshopping.model.Cart;
 import com.onlinevegetableshopping.model.FeedBack;
 import com.onlinevegetableshopping.model.RaiseComplaint;
@@ -22,7 +23,7 @@ import com.onlinevegetableshopping.model.Vegetable;
 import com.onlinevegetableshopping.service.UserService;
 
 @RestController
-@CrossOrigin(origins="http://localhost:4200/")
+@CrossOrigin(origins ="*", allowedHeaders= "*")
 @RequestMapping("/user")
 public class UserController {
 	
@@ -38,7 +39,7 @@ public class UserController {
 	
 	 //http://localhost:8091/onlinevegetableshopping/user/givefeedback
 	
-	@PostMapping("/feedback") 
+	@PostMapping("/givefeedback") 
 	public ResponseEntity<FeedBack> giveFeedback(@RequestBody FeedBack feedback)
 	{
 	userServe.giveFeedBack(feedback);
@@ -56,9 +57,9 @@ public class UserController {
 	@GetMapping("/allveg") 
 	public ResponseEntity<List<Vegetable>> viewAllveg()
 	{
-		List<Vegetable> viewVeg = userServe.viewAllVegtable();
+		List<Vegetable> viewAllVegetables = userServe.viewAllVegtable();
 		
-		return  new ResponseEntity<List<Vegetable>>(viewVeg, HttpStatus.OK);
+		return  new ResponseEntity<List<Vegetable>>(viewAllVegetables, HttpStatus.OK);
 		
 	}
 	
@@ -94,10 +95,10 @@ public class UserController {
 
 	//http://localhost:8091/onlinevegetableshopping/user/deletebyvegid
 	
-	@DeleteMapping("/deletebyvegid/{veg_id}")
-	public ResponseEntity<Cart> deleteById(@PathVariable("veg_id") Integer veg_id)
+	@DeleteMapping("/deletebyvegid/{vegetableId}")
+	public ResponseEntity<Cart> deleteById(@PathVariable("vegetableId") Integer vegetableId) throws VegetableIdNotFoundException
 	{
-		userServe.deleteVegetablebyId(veg_id);
+		userServe.deleteVegetablebyId(vegetableId);
 		return new ResponseEntity("Successfully deleted from cart ", HttpStatus.OK);
 		
 	}
@@ -115,6 +116,19 @@ public class UserController {
 	{
 		userServe.raiseCompliant(raisecompliant);
 		return new ResponseEntity("Compliant is Raised successfully", HttpStatus.OK);
+		
+	}
+	
+	/*
+	 *  Controller for the requests related to the vegetable
+	 */
+	
+	//requests the controller to get vegetable by vegetableId
+	//localhost:8091/onlinevegetableshopping/user/vegbyid/
+	@GetMapping("/vegbyid/{vegetableId}")
+	public ResponseEntity getVegById(@PathVariable("vegetableId") Integer vegetableId) throws VegetableIdNotFoundException {
+		Vegetable veg=userServe.getById(vegetableId);
+		return new ResponseEntity<Object>(veg,HttpStatus.OK);
 		
 	}
 	

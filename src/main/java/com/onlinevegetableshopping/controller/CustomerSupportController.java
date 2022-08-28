@@ -17,7 +17,7 @@ import com.onlinevegetableshopping.model.Vegetable;
 import com.onlinevegetableshopping.service.CustomerSupportService;
 
 @RestController
-@CrossOrigin(origins="http://localhost:4200/")
+@CrossOrigin("*")
 @RequestMapping("/customersupport")
 public class CustomerSupportController {
 	

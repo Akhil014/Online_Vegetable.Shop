@@ -13,7 +13,7 @@ import com.onlinevegetableshopping.model.User;
 import com.onlinevegetableshopping.service.RegistrationService;
 
 @RestController
-@CrossOrigin(origins="http://localhost:4200/")
+@CrossOrigin("*")
 @RequestMapping("/registration")
 public class RegistrationController {
 	

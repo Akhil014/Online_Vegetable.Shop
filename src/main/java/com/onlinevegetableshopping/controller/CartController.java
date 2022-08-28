@@ -13,7 +13,7 @@ import com.onlinevegetableshopping.model.Order;
 import com.onlinevegetableshopping.service.CartService;
 
 @RestController
-@CrossOrigin(origins="http://localhost:4200/")
+@CrossOrigin("*")
 @RequestMapping("/Cartorderdetails")
 public class CartController {
 

@@ -12,7 +12,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
-//@EnableSwagger2
+@EnableSwagger2
 @ComponentScan(basePackages = "com.onlinevegetableshopping")
 public class OnlineVegetableShoppingApplication {
 
@@ -22,13 +22,9 @@ public class OnlineVegetableShoppingApplication {
 	}
 	
 	
-//	@Bean
-//	public Docket restApi(){
-//		return new Docket(DocumentationType.SWAGGER_2)
-//				.select()
-//				.apis(RequestHandlerSelectors.basePackage("com.onlinevegetableshopping"))
-//				.paths(PathSelectors.any())
-//				.build();
-//
-//}
+	@Bean
+	public Docket productApi() {
+	return new Docket(DocumentationType.SWAGGER_2).select()
+	.apis(RequestHandlerSelectors.basePackage("com")).build();
+	}
 }

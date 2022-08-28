@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.onlinevegetableshopping.exception.VegetableIdNotFoundException;
 import com.onlinevegetableshopping.model.Cart;
 import com.onlinevegetableshopping.model.FeedBack;
 import com.onlinevegetableshopping.model.Order;
@@ -18,9 +19,11 @@ public interface UserService {
 	public List<Vegetable> viewAllVegtable();
 	public Cart  addvegetableToCart(Cart cart);
 	public List<Cart> viewCart();
-	public RaiseComplaint raiseCompliant(RaiseComplaint raisecomp);
-	public Cart deleteVegetablebyId(int veg_id);
+	public RaiseComplaint raiseCompliant(RaiseComplaint raisecomplaint);
+	public Cart deleteVegetablebyId(int vegetableId) throws VegetableIdNotFoundException ;
+	public Vegetable getById(int vegetableId) throws VegetableIdNotFoundException;
 		
+	
 	
 	
 
