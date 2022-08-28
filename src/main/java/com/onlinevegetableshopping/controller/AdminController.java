@@ -49,7 +49,7 @@ public class AdminController {
 
 	}
 
-	// requests the controller to delete by vegetable id in vegetable store
+	// requests the controller to delete by vegetable id in vegetable store which is done by admin
 
 	// http://localhost:8091/onlinevegetableshopping/admin/deletebyid/
 
