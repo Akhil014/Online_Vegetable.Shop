@@ -38,7 +38,7 @@ public class AdminController {
 	 * Controller for the requests related to the Vegetable store
 	 */
 
-	// requests the controller to add vegetable in vegetable store
+	 //requests the controller to add vegetable in vegetable store
 
 	// http://localhost:8091/onlinevegetableshopping/admin/addveg
 
