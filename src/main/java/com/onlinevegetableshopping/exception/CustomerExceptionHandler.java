@@ -14,7 +14,7 @@ import lombok.extern.java.Log;
 public class CustomerExceptionHandler extends ResponseEntityExceptionHandler {
 	
 	private static final Logger LOG = LoggerFactory.getLogger(CustomerExceptionHandler.class);
-	
+	//Exceptions
 	@ExceptionHandler(VegetableIdNotFoundException.class)
 	public ResponseEntity<Object> handleVegetableIdNotFoundException(){
 		LOG.error("handleVegetableIdNotFoundException");
