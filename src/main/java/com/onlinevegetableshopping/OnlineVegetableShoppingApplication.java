@@ -13,7 +13,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
 @EnableSwagger2
-@ComponentScan(basePackages = "com.onlinevegetableshopping")
+//@ComponentScan(basePackages = "com.onlinevegetableshopping")
 public class OnlineVegetableShoppingApplication {
 
 	public static void main(String[] args) {
