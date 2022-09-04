@@ -19,7 +19,7 @@ public class OnlineVegetableShoppingApplication {
 		System.out.println("Online_Vegetable_Shopping is Successfully created");
 	}
 	
-	
+	//Bean
 	@Bean
 	public Docket productApi() {
 	return new Docket(DocumentationType.SWAGGER_2).select()
