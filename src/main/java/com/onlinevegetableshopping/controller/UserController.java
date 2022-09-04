@@ -1,7 +1,5 @@
 package com.onlinevegetableshopping.controller;
-
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,12 +11,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.onlinevegetableshopping.exception.VegetableIdNotFoundException;
 import com.onlinevegetableshopping.model.Cart;
 import com.onlinevegetableshopping.model.FeedBack;
 import com.onlinevegetableshopping.model.RaiseComplaint;
-import com.onlinevegetableshopping.model.User;
 import com.onlinevegetableshopping.model.Vegetable;
 import com.onlinevegetableshopping.service.UserService;
 
@@ -40,10 +36,10 @@ public class UserController {
 	 //http://localhost:8091/onlinevegetableshopping/user/givefeedback
 	
 	@PostMapping("/givefeedback") 
-	public ResponseEntity<FeedBack> giveFeedback(@RequestBody FeedBack feedback)
+	public ResponseEntity<Object> giveFeedback(@RequestBody FeedBack feedback)
 	{
 	userServe.giveFeedBack(feedback);
-		return new ResponseEntity("Feedback Recorded",HttpStatus.OK);
+		return new ResponseEntity<Object>("Feedback Recorded",HttpStatus.OK);
 		
 	}
 	
@@ -59,7 +55,7 @@ public class UserController {
 	{
 		List<Vegetable> viewAllVegetables = userServe.viewAllVegtable();
 		
-		return  new ResponseEntity<List<Vegetable>>(viewAllVegetables, HttpStatus.OK);
+		return  new ResponseEntity<>(viewAllVegetables, HttpStatus.OK);
 		
 	}
 	
@@ -72,10 +68,10 @@ public class UserController {
 	//http://localhost:8091/onlinevegetableshopping/user/addVegtocart
 	
 	@PostMapping("/addVegtocart") 
-	public ResponseEntity<Cart> addToCart(@RequestBody Cart cart)
+	public ResponseEntity<Object> addToCart(@RequestBody Cart cart)
 	{
 		Cart carts= userServe.addvegetableToCart(cart);
-		return new ResponseEntity(carts, HttpStatus.OK) ;
+		return new ResponseEntity<Object>(carts, HttpStatus.OK) ;
 		
 	}
 	
@@ -87,7 +83,7 @@ public class UserController {
 	public ResponseEntity<List<Cart>> viewCart()
 	{
 		List<Cart> viewAddCart = userServe.viewCart();
-		return new ResponseEntity<List<Cart>>(viewAddCart, HttpStatus.OK);
+		return new ResponseEntity<>(viewAddCart, HttpStatus.OK);
 		
 	}
 	
@@ -96,10 +92,10 @@ public class UserController {
 	//http://localhost:8091/onlinevegetableshopping/user/deletebyvegid
 	
 	@DeleteMapping("/deletebyvegid/{vegetableId}")
-	public ResponseEntity<Cart> deleteById(@PathVariable("vegetableId") Integer vegetableId) throws VegetableIdNotFoundException
+	public ResponseEntity<Object> deleteById(@PathVariable("vegetableId") Integer vegetableId) throws VegetableIdNotFoundException
 	{
 		userServe.deleteVegetablebyId(vegetableId);
-		return new ResponseEntity("Successfully deleted from cart ", HttpStatus.OK);
+		return new ResponseEntity<Object>("Successfully deleted from cart ", HttpStatus.OK);
 		
 	}
 
@@ -112,10 +108,10 @@ public class UserController {
 	
 	//http://localhost:8091/onlinevegetableshopping/user/raise
 	@PostMapping("/raise")
-	public ResponseEntity<RaiseComplaint> raiseCompliant(@RequestBody RaiseComplaint raisecompliant)
+	public ResponseEntity<Object> raiseCompliant(@RequestBody RaiseComplaint raisecompliant)
 	{
 		userServe.raiseCompliant(raisecompliant);
-		return new ResponseEntity("Compliant is Raised successfully", HttpStatus.OK);
+		return new ResponseEntity<Object>("Compliant is Raised successfully", HttpStatus.OK);
 		
 	}
 	
@@ -126,8 +122,8 @@ public class UserController {
 	//requests the controller to get vegetable by vegetableId
 	//localhost:8091/onlinevegetableshopping/user/vegbyid/
 	@GetMapping("/vegbyid/{vegetableId}")
-	public ResponseEntity getVegById(@PathVariable("vegetableId") Integer vegetableId) throws VegetableIdNotFoundException {
-		Vegetable veg=userServe.getById(vegetableId);
+	public ResponseEntity<Object> getVegById(@PathVariable("vegetableId") Integer vegetableId) throws VegetableIdNotFoundException {
+		boolean veg=userServe.getById(vegetableId);
 		return new ResponseEntity<Object>(veg,HttpStatus.OK);
 		
 	}

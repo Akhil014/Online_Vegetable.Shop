@@ -12,7 +12,6 @@ import com.onlinevegetableshopping.dao.OrderRepository;
 import com.onlinevegetableshopping.dao.RaiseComplaintRepository;
 import com.onlinevegetableshopping.dao.UserRepository;
 import com.onlinevegetableshopping.dao.VegetableRepository;
-import com.onlinevegetableshopping.exception.OrderIdNotFoundException;
 import com.onlinevegetableshopping.exception.UserIdNotFoundException;
 import com.onlinevegetableshopping.exception.VegetableIdNotFoundException;
 import com.onlinevegetableshopping.model.FeedBack;
@@ -56,6 +55,8 @@ public class AdminServiceImpl implements AdminService{
 		Vegetable veg= vegRepo.saveAndFlush(vegetable);
 		return veg;
 	}
+	
+
 	// method implementing to delete Vegetable in Vegetable Store
 
 	@Override
@@ -125,34 +126,33 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	@Override
-	public Vegetable getById(int vegetableId) throws VegetableIdNotFoundException {
+	public boolean getById(int vegetableId) throws VegetableIdNotFoundException {
 		try {
 		Optional<Vegetable> vegetable=vegRepo.findById(vegetableId);
-		return vegetable.get();
+		return vegetable.isPresent();
 		}catch (Exception e) {
 			throw new VegetableIdNotFoundException("Entered Vegetable id is not found");
 		}
 	}
 
 	@Override
-	public Order getOrderById(int orderId) throws OrderIdNotFoundException{
-		try {
+	public boolean getOrderById(Long orderId) {
+		
 		Optional<Order> orderById=orderRepo.findById(orderId);
-		return orderById.get();
-		}catch (Exception e) {
-			throw new OrderIdNotFoundException("Entered order id is not found");
+		return orderById.isPresent();
 		}
-	}
-
+	
 	@Override
-	public User viewUserById(int userId) throws UserIdNotFoundException{
+	public boolean viewUserById(int userId) throws UserIdNotFoundException{
 		try {
 		Optional<User> user=userRepo.findById(userId);
-		return user.get();
+		return user.isPresent();
 		}catch (Exception e) {
 			throw new UserIdNotFoundException("Entered user id is not found");
 		}
 	}
+
+	
 
 	
 

@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.onlinevegetableshopping.exception.OrderIdNotFoundException;
 import com.onlinevegetableshopping.exception.UserIdNotFoundException;
 import com.onlinevegetableshopping.exception.VegetableIdNotFoundException;
 import com.onlinevegetableshopping.model.FeedBack;
@@ -28,9 +27,9 @@ public interface AdminService {
 	public List<RaiseComplaint> viewComplaints();
 	public List<FeedBack> viewFeedbacks();
 	public List<Order> viewOrders();
-	public Vegetable getById(int vegetableId) throws VegetableIdNotFoundException;
-	public Order getOrderById(int orderId) throws OrderIdNotFoundException;
-	public User viewUserById(int userId) throws UserIdNotFoundException;
+	public boolean getById(int vegetableId) throws VegetableIdNotFoundException;
+	public boolean getOrderById(Long ordreId);
+	public boolean viewUserById(int userId) throws UserIdNotFoundException;
 	
 	
 

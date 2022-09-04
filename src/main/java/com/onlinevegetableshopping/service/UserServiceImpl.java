@@ -1,21 +1,16 @@
 package com.onlinevegetableshopping.service;
-
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.onlinevegetableshopping.dao.CartRepository;
 import com.onlinevegetableshopping.dao.FeedbackRepository;
 import com.onlinevegetableshopping.dao.RaiseComplaintRepository;
-import com.onlinevegetableshopping.dao.UserRepository;
 import com.onlinevegetableshopping.dao.VegetableRepository;
 import com.onlinevegetableshopping.exception.VegetableIdNotFoundException;
 import com.onlinevegetableshopping.model.Cart;
 import com.onlinevegetableshopping.model.FeedBack;
 import com.onlinevegetableshopping.model.RaiseComplaint;
-import com.onlinevegetableshopping.model.User;
 import com.onlinevegetableshopping.model.Vegetable;
 
 @Service
@@ -47,39 +42,34 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public FeedBack giveFeedBack(FeedBack feedback) {
 		
-		FeedBack userFeedback = feedbackRepo.saveAndFlush(feedback);
-		return userFeedback;
+		return feedbackRepo.saveAndFlush(feedback);
 	}
 
 	// method implementing to view all Vegetable
 
 	public List<Vegetable> viewAllVegtable() {
-		List<Vegetable> res=vegRepo.findAll();
-		return res;
+		return vegRepo.findAll();
 	}
 
 	// method implementing to add vegetable to Cart
 
 	@Override
 	public Cart addvegetableToCart(Cart cart) {
-		Cart addtocart=cartRepo.saveAndFlush(cart);
-		return addtocart;
+		return cartRepo.saveAndFlush(cart);
 	}
 	
 	// method implementing to view Cart
 
 	public List<Cart> viewCart() {
 		
-		List<Cart> viewCart = cartRepo.findAll();
-		return viewCart;
+		return cartRepo.findAll();
 	}
 	
 	// method implementing to raise Complaint 
 
 	@Override
 	public RaiseComplaint raiseCompliant(RaiseComplaint raisecomplaint) {
-		RaiseComplaint raise = raiseRepo.saveAndFlush(raisecomplaint);
-		return raise;
+		return raiseRepo.saveAndFlush(raisecomplaint);
 	}
 	
 	// method implementing to delete Vegetable by Id
@@ -95,10 +85,10 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Vegetable getById(int vegetableId) throws VegetableIdNotFoundException {
+	public boolean getById(int vegetableId) throws VegetableIdNotFoundException {
 		try {
 		Optional<Vegetable> vegetable=vegRepo.findById(vegetableId);
-		return vegetable.get();
+		return vegetable.isPresent();
 		}catch (Exception e) {
 			throw new VegetableIdNotFoundException("Entered Vegetable id is not found");
 		}

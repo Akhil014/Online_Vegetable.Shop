@@ -1,8 +1,5 @@
 package com.onlinevegetableshopping.controller;
-
 import java.util.List;
-
-import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,19 +12,16 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.onlinevegetableshopping.exception.OrderIdNotFoundException;
 import com.onlinevegetableshopping.exception.UserIdNotFoundException;
 import com.onlinevegetableshopping.exception.VegetableIdNotFoundException;
 import com.onlinevegetableshopping.model.FeedBack;
 import com.onlinevegetableshopping.model.Order;
 import com.onlinevegetableshopping.model.RaiseComplaint;
-import com.onlinevegetableshopping.model.User;
 import com.onlinevegetableshopping.model.Vegetable;
 import com.onlinevegetableshopping.service.AdminService;
 
 @RestController
-@CrossOrigin
+@CrossOrigin()
 @RequestMapping("/admin")
 public class AdminController {
 
@@ -43,9 +37,9 @@ public class AdminController {
 	// http://localhost:8091/onlinevegetableshopping/admin/addveg
 
 	@PostMapping("/addveg")
-	public ResponseEntity<Vegetable> addveg(@RequestBody Vegetable vegetable) {
-		adServe.addVegetables(vegetable);
-		return new ResponseEntity("vegetable added", HttpStatus.OK);
+	public ResponseEntity<Object> addveg(@RequestBody Vegetable vegtable) {
+		adServe.addVegetables(vegtable);
+		return new ResponseEntity<>("vegetable added", HttpStatus.OK);
 
 	}
 
@@ -55,9 +49,9 @@ public class AdminController {
 	// http://localhost:8091/onlinevegetableshopping/admin/deletebyid/
 
 	@DeleteMapping("/deletebyid/{vegetableId}")
-	public ResponseEntity<Vegetable> deleteVegById(@PathVariable("vegetableId") Integer vegetableId) throws VegetableIdNotFoundException {
+	public ResponseEntity<Object> deleteVegById(@PathVariable("vegetableId") Integer vegetableId) throws VegetableIdNotFoundException {
 		adServe.deleteVegetables(vegetableId);
-		return new ResponseEntity("Vegetable Deleted", HttpStatus.OK);
+		return new ResponseEntity<>("Vegetable Deleted", HttpStatus.OK);
 
 	}
 
@@ -66,10 +60,10 @@ public class AdminController {
 	// http://localhost:8091/onlinevegetableshopping/admin/update/
 
 	@PutMapping("/update/{vegetableId}")
-	public ResponseEntity<Vegetable> updateVegetable(@PathVariable("vegetableId") Integer vegetableId,  @RequestBody Vegetable vegetable ) throws VegetableIdNotFoundException  {
+	public ResponseEntity<Object> updateVegetable(@PathVariable("vegetableId") Integer vegetableId,  @RequestBody Vegetable vegetable ) throws VegetableIdNotFoundException  {
 		Vegetable updateveg = adServe.updateVegetables(vegetableId,vegetable);
 
-		return new ResponseEntity("Vegetable updated successfully", HttpStatus.OK);
+		return new ResponseEntity<>("Vegetable updated successfully", HttpStatus.OK);
 
 	}
 
@@ -78,12 +72,12 @@ public class AdminController {
 	// http://localhost:8091/onlinevegetableshopping/admin/allveg
 
 	@GetMapping("/allveg")
-	public ResponseEntity<List<Vegetable>> getAllVegetable() {
+	public ResponseEntity<Object> getAllVegetable() {
 		List<Vegetable> vegList = adServe.getAllVegtable();
 		if (vegList.isEmpty()) {
-			return new ResponseEntity("Sorry no vegetable list found!", HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>("Sorry no vegetable list found!", HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<List<Vegetable>>(vegList, HttpStatus.OK);
+		return new ResponseEntity<>(vegList, HttpStatus.OK);
 
 	}
 
@@ -98,7 +92,7 @@ public class AdminController {
 	@GetMapping("/viewallraise")
 	public ResponseEntity<List<RaiseComplaint>> viewCompliant() {
 		List<RaiseComplaint> raisecomplaint = adServe.viewComplaints();
-		return new ResponseEntity<List<RaiseComplaint>>(raisecomplaint, HttpStatus.OK);
+		return new ResponseEntity<>(raisecomplaint, HttpStatus.OK);
 
 	}
 
@@ -112,7 +106,7 @@ public class AdminController {
 	@GetMapping("/viewfeedback")
 	public ResponseEntity<List<FeedBack>> viewFeedback() {
 		List<FeedBack> viewfeedback = adServe.viewFeedbacks();
-		return new ResponseEntity(viewfeedback, HttpStatus.OK);
+		return new ResponseEntity<>(viewfeedback, HttpStatus.OK);
 
 	}
 
@@ -125,7 +119,7 @@ public class AdminController {
 	@GetMapping("/vieworder")
 	public ResponseEntity<List<Order>> viewOrders() {
 		List<Order> viewOrder = adServe.viewOrders();
-		return new ResponseEntity(viewOrder, HttpStatus.OK);
+		return new ResponseEntity<>(viewOrder, HttpStatus.OK);
 
 	}
 
@@ -136,9 +130,9 @@ public class AdminController {
 	// requests the controller to view vegetable by vegetableid
 	// localhost:8091/onlinevegetableshopping/user/vegbyid/
 	@GetMapping("/vegbyid/{vegetableId}")
-	public ResponseEntity getVegById(@PathVariable("vegetableId") int vegetableId) throws VegetableIdNotFoundException {
-		Vegetable veg = adServe.getById(vegetableId);
-		return new ResponseEntity<Object>(veg, HttpStatus.OK);
+	public ResponseEntity<Object> getVegById(@PathVariable("vegetableId") int vegetableId) throws VegetableIdNotFoundException {
+		boolean veg = adServe.getById(vegetableId);
+		return new ResponseEntity<>(veg, HttpStatus.OK);
 
 	}
 	
@@ -149,9 +143,9 @@ public class AdminController {
 
 	// localhost:8091/onlinevegetableshopping/admin/orderbyid/
 	@GetMapping("/orderbyid/{ordreId}")
-	public ResponseEntity geOrderById(@PathVariable("ordreId") Integer ordreId) throws OrderIdNotFoundException {
-		Order order = adServe.getOrderById(ordreId);
-		return new ResponseEntity<Object>(order, HttpStatus.OK);
+	public ResponseEntity<Object> getOrderById(@PathVariable("ordreId") Long ordreId)  {
+		boolean order = adServe.getOrderById(ordreId);
+		return new ResponseEntity<>(order, HttpStatus.OK);
 
 	}
 
@@ -161,9 +155,9 @@ public class AdminController {
 	// requests the controller to view user by userid
 	// localhost:8091/onlinevegetableshopping/admin/userbyid/
 	@GetMapping("/userbyid/{userId}")
-	public ResponseEntity geUserById(@PathVariable("userId") Integer userId) throws UserIdNotFoundException{
-		User user = adServe.viewUserById(userId);
-		return new ResponseEntity<Object>(user, HttpStatus.OK);
+	public ResponseEntity<Object> geUserById(@PathVariable("userId") Integer userId) throws UserIdNotFoundException{
+		boolean user = adServe.viewUserById(userId);
+		return new ResponseEntity<>(user, HttpStatus.OK);
 
 	}
 

@@ -21,11 +21,11 @@ public class CustomerExceptionHandler extends ResponseEntityExceptionHandler {
 		return new ResponseEntity<Object>("Given vegetable id not present in store",HttpStatus.BAD_REQUEST);
 	}
 	
-	@ExceptionHandler(OrderIdNotFoundException.class)
-	public ResponseEntity<Object> handleOrderIdNotFoundException(){
-		LOG.error("handleOrderIdNotFoundException");
-		return new ResponseEntity<Object>("Please enter valid order id",HttpStatus.BAD_REQUEST);
-	}
+//	@ExceptionHandler(OrderIdNotFoundException.class)
+//	public ResponseEntity<Object> handleOrderIdNotFoundException(){
+//		LOG.error("handleOrderIdNotFoundException");
+//		return new ResponseEntity<Object>("Please enter valid order id",HttpStatus.BAD_REQUEST);
+//	}
      
 	@ExceptionHandler(UserIdNotFoundException.class)
 	public ResponseEntity<Object> handleUserIdNotFoundException(){

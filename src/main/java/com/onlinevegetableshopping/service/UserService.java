@@ -21,7 +21,7 @@ public interface UserService {
 	public List<Cart> viewCart();
 	public RaiseComplaint raiseCompliant(RaiseComplaint raisecomplaint);
 	public Cart deleteVegetablebyId(int vegetableId) throws VegetableIdNotFoundException ;
-	public Vegetable getById(int vegetableId) throws VegetableIdNotFoundException;
+	public boolean getById(int vegetableId) throws VegetableIdNotFoundException;
 		
 	
 	
